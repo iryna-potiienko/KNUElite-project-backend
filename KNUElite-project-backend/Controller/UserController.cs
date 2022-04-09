@@ -1,6 +1,7 @@
 ﻿using KNUElite_project_backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace KNUElite_project_backend.Controller
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = _context.Users.Where(t=>t.Id == id).FirstOrDefault();
 
             if (user == null)
             {
@@ -68,13 +69,15 @@ namespace KNUElite_project_backend.Controller
         {
             var email = data["email"].ToString();
             var password = data["password"].ToString();
-            var user = _context.Users.Where(t => t.Email.Equals(email)).FirstOrDefault();
+            var user = _context.Users.Where(t => t.Email.Equals(email)).Include("Role").FirstOrDefault();
 
             if (user == null)
                 return BadRequest("Unknown email");
 
-            if (user.Password.Equals(password))
-                return Ok();
+            if (user.Password.Equals(password)) 
+            {
+                return Ok(new JsonResult(new { Id = user.Id, Name = user.Name, Email = user.Email, Role = user.Role.Name })); 
+            }
 
             return BadRequest("Wrong password");
 
