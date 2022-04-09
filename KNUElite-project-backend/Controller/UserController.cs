@@ -1,4 +1,5 @@
 ﻿using KNUElite_project_backend.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace KNUElite_project_backend.Controller
 {
+    [EnableCors("AllowOrigin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -63,7 +65,7 @@ namespace KNUElite_project_backend.Controller
 
             return Ok();
         }
-
+  
         [HttpPost("check")]
         public async Task<IActionResult> CheckUser([FromBody] JObject data)
         {

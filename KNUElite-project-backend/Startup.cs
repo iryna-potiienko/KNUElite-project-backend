@@ -25,8 +25,21 @@ namespace KNUElite_project_backend
         public void ConfigureServices(IServiceCollection services)
         {
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<ProjectContex>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddDbContextPool<ProjectContex>(options => options.UseMySql(mySqlConnectionStr, 
+                ServerVersion.AutoDetect(mySqlConnectionStr)));
             services.AddControllers().AddNewtonsoftJson();
+
+            // Named Policy
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:3000")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +55,7 @@ namespace KNUElite_project_backend
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors("AllowOrigin");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
