@@ -1,4 +1,5 @@
 ﻿using KNUElite_project_backend.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace KNUElite_project_backend.Controller
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class FileController : ControllerBase

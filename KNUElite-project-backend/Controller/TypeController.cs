@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KNUElite_project_backend.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace KNUElite_project_backend.Controller
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class TypeController : ControllerBase
