@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace KNUElite_project_backend.Controller
 {
-    [EnableCors("AllowOrigin")]
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
