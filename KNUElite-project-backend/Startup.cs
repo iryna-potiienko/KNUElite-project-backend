@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KNUElite_project_backend.IControllers;
+using KNUElite_project_backend.Repositories;
 
 namespace KNUElite_project_backend
 {
@@ -25,8 +27,14 @@ namespace KNUElite_project_backend
         public void ConfigureServices(IServiceCollection services)
         {
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            
+            
+            services.AddScoped<IProjectContext, ProjectContex>();
             services.AddDbContextPool<ProjectContex>(options => options.UseMySql(mySqlConnectionStr, 
                 ServerVersion.AutoDetect(mySqlConnectionStr)));
+
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddCors(options =>

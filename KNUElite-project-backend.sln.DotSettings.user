@@ -1,0 +1,34 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0449179f_002D1d82_002D4aa6_002D9bce_002D7b44496f9590/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddTaskTest #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::net6.0::KNUElite_project_unit_tests.UnitTest1.AddTaskTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=31455579_002Db5f3_002D4896_002Da27d_002D31b1a21a7779/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddTaskTest #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::net6.0::KNUElite_project_unit_tests.UnitTest1.AddTaskTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=75e1aef8_002D9cf5_002D4778_002D96e7_002D91395f8b27de/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddTaskTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::net6.0::KNUElite_project_unit_tests.UnitTest1.AddTaskTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7eab8ec6_002Dc3d9_002D4b9b_002Daabe_002D095260c4301f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FindDatabaseTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::net6.0::KNUElite_project_unit_tests.TaskUnitTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=839ebec8_002D463a_002D4848_002D9b07_002Dbd1c9f40d337/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddTaskTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::net6.0::KNUElite_project_unit_tests.UnitTest1.AddTaskTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=edbc0f86_002D3edd_002D427f_002Da143_002D6112f214e5f8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AddTaskTest #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::net6.0::KNUElite_project_unit_tests.UnitTest1.AddTaskTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>
