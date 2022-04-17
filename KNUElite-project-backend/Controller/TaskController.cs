@@ -30,8 +30,22 @@ namespace KNUElite_project_backend.Controller
             List<JsonResult> result = new List<JsonResult>();
             foreach (var task in tasks)
             {
-                var res = (new JsonResult(new { Title = task.Title, Description = task.Description, Type = task.Type.Name,
-                    Status = task.Status.Name, Project = task.Project.Name, Reporter = task.Reporter.Name,
+                var res = (new JsonResult(new
+                {
+                    Id = task.Id,
+                    Title = task.Title,
+                    Description = task.Description,
+                    TypeId = task.TypeId,
+                    Type = task.Type.Name,
+                    StatusId = task.StatusId,
+                    Status = task.Status.Name,
+                    ProjectId = task.ProjectId,
+                    Project = task.Project.Name,
+                    EstimatedTime = task.EstimatedTime,
+                    LoggedTime = task.LoggedTime,
+                    ReporterId = task.ReporterId,
+                    Reporter = task.Reporter.Name,
+                    AssigneeId = task.AssigneeId,
                     Assignee = task.Assignee.Name
                 }));
                 result.Add(res);
@@ -51,14 +65,66 @@ namespace KNUElite_project_backend.Controller
                 return NotFound();
             }
 
-            return Ok(task);
+            return Ok(new JsonResult(new
+            {
+                Id = task.Id,
+                Title = task.Title,
+                Description = task.Description,
+                TypeId = task.TypeId,
+                Type = task.Type.Name,
+                StatusId = task.StatusId,
+                Status = task.Status.Name,
+                ProjectId = task.ProjectId,
+                Project = task.Project.Name,
+                EstimatedTime = task.EstimatedTime,
+                LoggedTime = task.LoggedTime,
+                ReporterId = task.ReporterId,
+                Reporter = task.Reporter.Name,
+                AssigneeId = task.AssigneeId,
+                Assignee = task.Assignee.Name
+            }));
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(Models.Task task)
         {
             _context.Tasks.Add(task);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+
+            return CreatedAtAction("Get", new { id = task.Id }, task);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, Models.Task task)
+        {
+            if (id != task.Id)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Update(task);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
 
             return CreatedAtAction("Get", new { id = task.Id }, task);
         }
