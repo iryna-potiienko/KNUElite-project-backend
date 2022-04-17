@@ -10,9 +10,9 @@ namespace KNUElite_project_backend.Repositories
 {
     public class TaskRepository: ITaskRepository
     {
-        private readonly IProjectContext _context;
+        private readonly ProjectContex _context;
 
-        public TaskRepository(IProjectContext context)
+        public TaskRepository(ProjectContex context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace KNUElite_project_backend.Repositories
             List<JsonResult> result = new List<JsonResult>();
             foreach (var task in tasks)
             {
-                var res = (new JsonResult(new { Id=task.Id, Title = task.Title, Description = task.Description, Type = task.Type.Name,
+                var res = (new JsonResult(new { Id = task.Id, Title = task.Title, Description = task.Description, Type = task.Type.Name,
                     Status = task.Status.Name, Project = task.Project.Name, Reporter = task.Reporter.Name,
                     Assignee = task.Assignee.Name
                 }));

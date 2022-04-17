@@ -10,7 +10,7 @@ using Type = KNUElite_project_backend.Models.Type;
 
 namespace KNUElite_project_backend
 {
-    public class ProjectContex : DbContext, IProjectContext
+    public class ProjectContex : DbContext //, IProjectContext
     {
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }

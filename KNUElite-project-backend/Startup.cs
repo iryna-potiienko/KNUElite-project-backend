@@ -29,7 +29,7 @@ namespace KNUElite_project_backend
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
             
             
-            services.AddScoped<IProjectContext, ProjectContex>();
+            //services.AddScoped<IProjectContext, ProjectContex>();
             services.AddDbContextPool<ProjectContex>(options => options.UseMySql(mySqlConnectionStr, 
                 ServerVersion.AutoDetect(mySqlConnectionStr)));
 
