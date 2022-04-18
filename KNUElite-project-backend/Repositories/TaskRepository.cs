@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,30 +22,47 @@ namespace KNUElite_project_backend.Repositories
         {
             var tasks = _context.Tasks.Include("Status").Include("Type").Include("Project").Include("Reporter")
                 .Include("Assignee").ToList();
-            List<JsonResult> result = new List<JsonResult>();
-            foreach (var task in tasks)
-            {
-                var res = (new JsonResult(new { Id = task.Id, Title = task.Title, Description = task.Description, Type = task.Type.Name,
-                    Status = task.Status.Name, Project = task.Project.Name, Reporter = task.Reporter.Name,
-                    Assignee = task.Assignee.Name
-                }));
-                result.Add(res);
-            }
+            // List<JsonResult> result = new List<JsonResult>();
+            // foreach (var task in tasks)
+            // {
+            //     var res = (new JsonResult(new
+            //     {
+            //         Id = task.Id,
+            //         Title = task.Title,
+            //         Description = task.Description,
+            //         TypeId = task.TypeId,
+            //         Type = task.Type.Name,
+            //         StatusId = task.StatusId,
+            //         Status = task.Status.Name,
+            //         ProjectId = task.ProjectId,
+            //         Project = task.Project.Name,
+            //         EstimatedTime = task.EstimatedTime,
+            //         LoggedTime = task.LoggedTime,
+            //         ReporterId = task.ReporterId,
+            //         Reporter = task.Reporter.Name,
+            //         AssigneeId = task.AssigneeId,
+            //         Assignee = task.Assignee.Name
+            //     }));
+            //     result.Add(res);
+            // }
+
+            var result = ConvertToJsonList(tasks);
             return (result);
         }
 
-        public Task Get(int id)
+        public JsonResult Get(int id)
         {
             var task = _context.Tasks.Where(t=>t.Id == id).Include("Status").Include("Type")
                 .Include("Project").Include("Reporter")
-                .Include("Assignee").First();
+                .Include("Assignee").FirstOrDefault();;
 
             if (task == null)
             {
                 return null;
             }
 
-            return task;
+            //return task;
+            return ConvertToJsonResult(task);
         }
 
         public async Task<Task> Delete(int id)
@@ -61,10 +79,70 @@ namespace KNUElite_project_backend.Repositories
              return task;
          }
 
-         public void Save(Task task)
+         public async Task<bool> Save(Task task)
          {
              _context.Tasks.Add(task);
-             _context.Save();
+             try
+             {
+                 await _context.SaveChangesAsync();
+                 //_context.Save();
+             }
+             catch (Exception e)
+             {
+                 return false;
+             }
+
+             return true;
+             //_context.Save();
+         }
+         public async Task<bool> Edit(int id, Models.Task task)
+         {
+             _context.Update(task);
+
+             try
+             {
+                 await _context.SaveChangesAsync();
+             }
+             catch (Exception e)
+             {
+                 return false;
+             }
+
+             //return CreatedAtAction("Get", new { id = task.Id }, task);
+             return true;
+         }
+
+         public JsonResult ConvertToJsonResult(Task task)
+         {
+             var result = new JsonResult(new
+             {
+                 Id = task.Id,
+                 Title = task.Title,
+                 Description = task.Description,
+                 TypeId = task.TypeId,
+                 Type = task.Type.Name,
+                 StatusId = task.StatusId,
+                 Status = task.Status.Name,
+                 ProjectId = task.ProjectId,
+                 Project = task.Project.Name,
+                 EstimatedTime = task.EstimatedTime,
+                 LoggedTime = task.LoggedTime,
+                 ReporterId = task.ReporterId,
+                 Reporter = task.Reporter.Name,
+                 AssigneeId = task.AssigneeId,
+                 Assignee = task.Assignee.Name
+             });
+             
+             return result;
+         }
+
+         public List<JsonResult> ConvertToJsonList(List<Task> tasks)
+         {
+             List<JsonResult> result = new List<JsonResult>();
+             foreach (var task in tasks)
+                 result.Add(ConvertToJsonResult(task));
+
+             return result;
          }
     }
 }

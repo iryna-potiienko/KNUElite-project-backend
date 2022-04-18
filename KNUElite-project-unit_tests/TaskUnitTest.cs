@@ -33,32 +33,63 @@ namespace KNUElite_project_unit_tests
         [Fact]
         public void GetTaskByIdTest()
         {
-            var mock2 = new Mock<IProjectContext>();
+            //var mock2 = new Mock<IProjectContext>();
+            var jsonTask = new JsonResult(new
+            {
+                Id = 91,
+                Title = "TaskTest",
+                Description = "Iryna's Test Task",
+
+                TypeId = 31,
+                Type = "Task",
+                StatusId = 31,
+                Status = "In Testing",
+                ProjectId = 1,
+                Project = "Project",
+                EstimatedTime = "",
+                LoggedTime = "",
+
+                ReporterId = 1,
+                Reporter = "User1",
+
+                AssigneeId = 31,
+                Assignee = "Viktoria Kharchenko"
+            });
+            
             var mock = new Mock<ITaskRepository>();
-            mock.Setup(repo => repo.Get(1))
-                .Returns(new Task()
-                {
-                    Id = 1,
-                    Title = "Task1"
-                });
+            mock.Setup(repo => repo.Get(It.IsAny<int>()))
+                .Returns(jsonTask);
+                // .Returns(new Task()
+                // {
+                //     Id = 91,
+                //     Title = "TaskTest",
+                //     Description = "Iryna's Test Task",
+                //     LoggedTime = "",
+                //     EstimatedTime = "",
+                //     AssigneeId = 31,
+                //     ReporterId = 1,
+                //     StatusId = 31,
+                //     ProjectId = 1,
+                //     TypeId = 31
+                // });
 
             var controller = new TaskController(mock.Object);
 
-            var result = controller.Get(1);
+            var result = controller.Get(91);
 
             var viewResult = Assert.IsType<OkObjectResult>(result.Result);
 
-            var model = Assert.IsType<Task>(viewResult.Value);
+            var model = Assert.IsType<JsonResult>(viewResult.Value);
 
-            Assert.Equal(1, model.Id);
-            Assert.Equal("Task1", model.Title);
+            Assert.Equal(jsonTask.Value, model.Value);
+            //Assert.Equal("Task1", model.Value.Title);
         }
 
         [Fact]
         public void GetAllTasksTest()
         {
             // Arrange
-            var mock2 = new Mock<IProjectContext>();
+            //var mock2 = new Mock<IProjectContext>();
             var mock = new Mock<ITaskRepository>();
 
             mock.Setup(repo => repo.Get())
@@ -86,23 +117,29 @@ namespace KNUElite_project_unit_tests
             // Arrange
             var task = new Task()
             {
-                //Id = 1,
                 Title = "TaskTest",
-                AssigneeId = 1,
+                Description = "Iryna's Test Task",
+                LoggedTime = "",
+                EstimatedTime = "",
+                AssigneeId = 31,
                 ReporterId = 1,
-                StatusId = 1,
+                StatusId = 31,
                 ProjectId = 1,
-                TypeId = 1
+                TypeId = 31
             };
-            var mockRepo = new Mock<IProjectContext>();
-            var mock2 = new Mock<ITaskRepository>();
+            
+            //var mockRepo = new Mock<IProjectContext>();
+            var mock = new Mock<ITaskRepository>();
+            mock.Setup(repo => repo.Save(task))
+                .ReturnsAsync(true).Verifiable();
 
-            var controller = new TaskController(mock2.Object);
+            
+            var controller = new TaskController(mock.Object);
             // Act
             var result = await controller.Post(task);
 
             //Assert
-            mock2.Verify(r => r.Save(task));
+            mock.Verify(r => r.Save(task));
 
             var redirectToActionResult = Assert.IsType<CreatedAtActionResult>(result);
             Assert.Null(redirectToActionResult.ControllerName);
@@ -116,7 +153,7 @@ namespace KNUElite_project_unit_tests
         public async void DeleteTaskTest()
         {
             //Arrange
-            var mock2 = new Mock<IProjectContext>();
+            //var mock2 = new Mock<IProjectContext>();
             var mock = new Mock<ITaskRepository>();
             mock.Setup(repo => repo.Delete(1))
                 .ReturnsAsync(new Task()

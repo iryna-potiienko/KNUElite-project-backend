@@ -9,10 +9,11 @@ namespace KNUElite_project_backend.IControllers
     public interface ITaskRepository
     { 
         IList<JsonResult> Get();
-        Models.Task Get(int id);
+        JsonResult Get(int id);
 
         Task<Models.Task> Delete(int id);
 
-        void Save(Models.Task task);
+        Task<bool> Save(Task task);
+        Task<bool> Edit(int id, Task task);
     }
 }
