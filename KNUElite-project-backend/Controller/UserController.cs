@@ -100,5 +100,12 @@ namespace KNUElite_project_backend.Controller
             return BadRequest("Wrong password");
 
         }
+
+        [HttpGet("list")]
+        public IList<JsonResult> UserList()
+        {
+            var users = _userRepository.GetList();
+            return users;
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace KNUElite_project_backend.IControllers
         User Get(int id);
         Task<User> Delete(int id);
         Task<bool> Add(User user);
+        List<JsonResult> GetList();
         JsonResult Check(string email, string password);
         User Check1(string email, string password);
     }

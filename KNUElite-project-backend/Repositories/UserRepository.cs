@@ -31,6 +31,22 @@ namespace KNUElite_project_backend.Repositories
             return user ?? null;
         }
 
+        public List<JsonResult> GetList()
+        {
+            var users = _context.Users;
+
+            if (users == null)
+            {
+                return null;
+            }
+
+            List<JsonResult> result = new List<JsonResult>();
+            foreach (var user in users)
+                result.Add(ConvertToJsonResult(user));
+
+            return result;
+    
+        }
         public async Task<User> Delete(int id)
          {
              var user = await _context.Users.FindAsync(id);
@@ -82,5 +98,17 @@ namespace KNUElite_project_backend.Repositories
              var user = _context.Users.Where(t => t.Email.Equals(email)).Include("Role").FirstOrDefault();
              return user;
          }
+
+        public JsonResult ConvertToJsonResult(User user)
+        {
+            var result = new JsonResult(new
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email
+            });
+
+            return result;
+        }
     }
 }
