@@ -20,14 +20,14 @@ namespace KNUElite_project_unit_tests
     {
         private List<JsonResult> GetTestTasks()
         {
-            var users = new List<JsonResult>
+            var tasks = new List<JsonResult>
             {
-                new JsonResult(new {Id = 1, Title = "Tom"}),
-                new JsonResult(new {Id = 2, Title = "Alice"}),
-                new JsonResult(new {Id = 3, Title = "Sam"}),
-                new JsonResult(new {Id = 4, Title = "Kate"})
+                new JsonResult(new {Id = 1, Title = "Task 1"}),
+                new JsonResult(new {Id = 2, Title = "Task 2"}),
+                new JsonResult(new {Id = 3, Title = "Task 3"}),
+                new JsonResult(new {Id = 4, Title = "Task 4"})
             };
-            return users;
+            return tasks;
         }
 
         [Fact]
@@ -59,19 +59,6 @@ namespace KNUElite_project_unit_tests
             var mock = new Mock<ITaskRepository>();
             mock.Setup(repo => repo.Get(It.IsAny<int>()))
                 .Returns(jsonTask);
-                // .Returns(new Task()
-                // {
-                //     Id = 91,
-                //     Title = "TaskTest",
-                //     Description = "Iryna's Test Task",
-                //     LoggedTime = "",
-                //     EstimatedTime = "",
-                //     AssigneeId = 31,
-                //     ReporterId = 1,
-                //     StatusId = 31,
-                //     ProjectId = 1,
-                //     TypeId = 31
-                // });
 
             var controller = new TaskController(mock.Object);
 
