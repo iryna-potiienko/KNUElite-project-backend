@@ -1,7 +1,7 @@
 using KNUElite_project_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace KNUElite_project_backend.IControllers
+namespace KNUElite_project_backend.IRepositories
 {
     public interface IProjectContext
     {

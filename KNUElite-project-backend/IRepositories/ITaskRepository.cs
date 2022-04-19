@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Task = KNUElite_project_backend.Models.Task;
 
-namespace KNUElite_project_backend.IControllers
+namespace KNUElite_project_backend.IRepositories
 {
     public interface ITaskRepository
     { 

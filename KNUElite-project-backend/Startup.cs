@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KNUElite_project_backend.IControllers;
+using KNUElite_project_backend.IRepositories;
 using KNUElite_project_backend.Repositories;
 
 namespace KNUElite_project_backend

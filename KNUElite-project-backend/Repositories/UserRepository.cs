@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KNUElite_project_backend.IControllers;
+using KNUElite_project_backend.IRepositories;
 using KNUElite_project_backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +45,6 @@ namespace KNUElite_project_backend.Repositories
                 result.Add(ConvertToJsonResult(user));
 
             return result;
-    
         }
         public async Task<User> Delete(int id)
          {
@@ -82,7 +81,6 @@ namespace KNUElite_project_backend.Repositories
              var user = _context.Users.Where(t => t.Email.Equals(email)).Include("Role").FirstOrDefault();
 
              if (user == null)
-                 //return BadRequest("Unknown email");
                  throw new Exception("Unknown email");
 
              if (user.Password.Equals(password)) 
@@ -93,13 +91,13 @@ namespace KNUElite_project_backend.Repositories
              throw new Exception("Wrong password");
          }
          
-         public User Check1(string email, string password)
+         public User CheckUser(string email, string password)
          {
-             var user = _context.Users.Where(t => t.Email.Equals(email)).Include("Role").FirstOrDefault();
+             var user = _context.Users.Where(u => u.Email.Equals(email)).Include("Role").FirstOrDefault();
              return user;
          }
 
-        public JsonResult ConvertToJsonResult(User user)
+        private JsonResult ConvertToJsonResult(User user)
         {
             var result = new JsonResult(new
             {

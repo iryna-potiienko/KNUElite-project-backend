@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KNUElite_project_backend.IControllers;
+using KNUElite_project_backend.IRepositories;
 
 namespace KNUElite_project_backend.Controller
 {
@@ -87,7 +87,7 @@ namespace KNUElite_project_backend.Controller
             var password = data["password"].ToString();
             //var user = _context.Users.Where(t => t.Email.Equals(email)).Include("Role").FirstOrDefault();
             
-            var user = _userRepository.Check1(email, password);
+            var user = _userRepository.CheckUser(email, password);
 
             if (user == null)
                 return BadRequest("Unknown email");

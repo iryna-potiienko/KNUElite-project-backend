@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using KNUElite_project_backend.Controller;
-using KNUElite_project_backend.IControllers;
+using KNUElite_project_backend.IRepositories;
 using KNUElite_project_backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -14,7 +14,6 @@ namespace KNUElite_project_unit_tests
     {
         private List<User> GetTestTasks()
         {
-            //var role = new Role() {Id = 32, Name = "User"};
             var users = new List<User>
             {
                 new User {Id = 1, Name = "TestUser1", RoleId = 32,Role = new Role{Id = 32, Name = "User"}},
@@ -61,8 +60,7 @@ namespace KNUElite_project_unit_tests
 
             mock.Setup(repo => repo.Get())
                 .Returns(GetTestTasks()).Verifiable();
-
-
+            
             var controller = new UserController(mock.Object);
 
             // Act
@@ -83,12 +81,10 @@ namespace KNUElite_project_unit_tests
             // Arrange
             var testUser = GetTestTasks().FirstOrDefault(user => user.Id == 1);
 
-            //var mockRepo = new Mock<IProjectContext>();
             var mock = new Mock<IUserRepository>();
             mock.Setup(repo => repo.Add(testUser))
                 .ReturnsAsync(true).Verifiable();
-
-
+            
             var controller = new UserController(mock.Object);
             // Act
             var result = await controller.Post(testUser);
@@ -137,11 +133,10 @@ namespace KNUElite_project_unit_tests
                 Role = new Role{Id = 32, Name = "User"}
             };
             //var user = GetTestTasks().FirstOrDefault(u => u.Id == 1);
-            //var data = new JObject(new JValue(new {Email = user?.Email, Password = user?.Password}));
             var data = JObject.FromObject(new {email = user?.Email, password = user?.Password});
 
             var mock = new Mock<IUserRepository>();
-            mock.Setup(repo => repo.Check1(user.Email, user.Password))
+            mock.Setup(repo => repo.CheckUser(user.Email, user.Password))
                 .Returns(user);
 
             var controller = new UserController(mock.Object);

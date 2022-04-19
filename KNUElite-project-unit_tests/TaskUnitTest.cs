@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KNUElite_project_backend.Controller;
-using KNUElite_project_backend.IControllers;
 using Moq;
 using Xunit;
 using KNUElite_project_backend;
+using KNUElite_project_backend.IRepositories;
 using KNUElite_project_backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +33,6 @@ namespace KNUElite_project_unit_tests
         [Fact]
         public void GetTaskByIdTest()
         {
-            //var mock2 = new Mock<IProjectContext>();
             var jsonTask = new JsonResult(new
             {
                 Id = 91,
@@ -76,14 +75,13 @@ namespace KNUElite_project_unit_tests
         public void GetAllTasksTest()
         {
             // Arrange
-            //var mock2 = new Mock<IProjectContext>();
             var mock = new Mock<ITaskRepository>();
 
             mock.Setup(repo => repo.Get())
                 .Returns(GetTestTasks()).Verifiable();
 
 
-            var controller = new TaskController(mock.Object); //,mock.Object);
+            var controller = new TaskController(mock.Object);
 
             // Act
             var result = controller.Get();
@@ -115,13 +113,12 @@ namespace KNUElite_project_unit_tests
                 TypeId = 31
             };
             
-            //var mockRepo = new Mock<IProjectContext>();
             var mock = new Mock<ITaskRepository>();
             mock.Setup(repo => repo.Save(task))
                 .ReturnsAsync(true).Verifiable();
-
             
             var controller = new TaskController(mock.Object);
+            
             // Act
             var result = await controller.Post(task);
 
@@ -140,7 +137,6 @@ namespace KNUElite_project_unit_tests
         public async void DeleteTaskTest()
         {
             //Arrange
-            //var mock2 = new Mock<IProjectContext>();
             var mock = new Mock<ITaskRepository>();
             mock.Setup(repo => repo.Delete(1))
                 .ReturnsAsync(new Task()
