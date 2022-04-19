@@ -35,6 +35,13 @@ namespace KNUElite_project_backend
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             
+            services.AddScoped<IMeetingRepository, MeetingsRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IStatusRepository, StatusRepository>();
+            services.AddScoped<ITypeRepository, TypeRepository>();
+            
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddCors(options =>

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KNUElite_project_backend.IRepositories;
 
 namespace KNUElite_project_backend.Controller
 {
@@ -14,24 +15,24 @@ namespace KNUElite_project_backend.Controller
     [ApiController]
     public class RoleController : ControllerBase
     {
-        private ProjectContex _context;
+        private readonly IRoleRepository _roleRepository;
 
-        public RoleController(ProjectContex context)
+        public RoleController(IRoleRepository repository)
         {
-            _context = context;
+            _roleRepository = repository;
         }
 
         [HttpGet]
         public IList<Role> Get()
         {
-            return (_context.Roles.ToList());
+            return _roleRepository.Get();
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var role = await _context.Roles.FindAsync(id);
-
+            var role = await _roleRepository.Get(id);
+            
             if (role == null)
             {
                 return NotFound();
@@ -43,26 +44,20 @@ namespace KNUElite_project_backend.Controller
         [HttpPost]
         public async Task<IActionResult> Post(Role role)
         {
-            _context.Roles.Add(role);
-            await _context.SaveChangesAsync();
-
+            await _roleRepository.Add(role);
             return CreatedAtAction("Get", new { id = role.Id }, role);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var role = await _context.Roles.FindAsync(id);
+            var role = await _roleRepository.Delete(id);
             if (role == null)
             {
                 return NotFound();
             }
-
-            _context.Roles.Remove(role);
-            await _context.SaveChangesAsync();
-
+            
             return Ok();
         }
-
     }
 }
