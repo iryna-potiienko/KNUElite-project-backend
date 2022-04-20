@@ -26,14 +26,7 @@ namespace KNUElite_project_unit_tests
         [Fact]
         public void GetUserByIdTest()
         {
-            // var user = new User()
-            // {
-            //     Id = 1,
-            //     Name = "TestUser",
-            //     Email = "testuser@gmail.com",
-            //     Password = "Password1",
-            //     RoleId = 31
-            // };
+
             var user = GetTestTasks().FirstOrDefault(u => u.Id == 1);
 
             var mock = new Mock<IUserRepository>();
@@ -55,7 +48,6 @@ namespace KNUElite_project_unit_tests
         [Fact]
         public void GetAllUsersTest()
         {
-            // Arrange
             var mock = new Mock<IUserRepository>();
 
             mock.Setup(repo => repo.Get())

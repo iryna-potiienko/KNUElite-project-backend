@@ -16,30 +16,17 @@ namespace KNUElite_project_backend.Controller
     [ApiController]
     public class TaskController : ControllerBase
     {
-        //private readonly IProjectContext _context;
 
         private readonly ITaskRepository _taskRepository;
 
         public TaskController(ITaskRepository taskTaskRepository)
         {
-            //_context = context;
             _taskRepository = taskTaskRepository;
         }
 
         [HttpGet]
         public IList<JsonResult> Get()
         {
-            // var tasks = _context.Tasks.Include("Status").Include("Type").Include("Project").Include("Reporter")
-            //     .Include("Assignee").ToList();
-            // List<JsonResult> result = new List<JsonResult>();
-            // foreach (var task in tasks)
-            // {
-            //     var res = (new JsonResult(new { Title = task.Title, Description = task.Description, Type = task.Type.Name,
-            //         Status = task.Status.Name, Project = task.Project.Name, Reporter = task.Reporter.Name,
-            //         Assignee = task.Assignee.Name
-            //     }));
-            //     result.Add(res);
-            // }
             var result = _taskRepository.Get();
             return (result);
         }
@@ -55,25 +42,6 @@ namespace KNUElite_project_backend.Controller
             }
 
             return Ok(task);
-            
-            // return Ok(new JsonResult(new
-            // {
-            //     Id = task.Id,
-            //     Title = task.Title,
-            //     Description = task.Description,
-            //     TypeId = task.TypeId,
-            //     Type = task.Type.Name,
-            //     StatusId = task.StatusId,
-            //     Status = task.Status.Name,
-            //     ProjectId = task.ProjectId,
-            //     Project = task.Project.Name,
-            //     EstimatedTime = task.EstimatedTime,
-            //     LoggedTime = task.LoggedTime,
-            //     ReporterId = task.ReporterId,
-            //     Reporter = task.Reporter.Name,
-            //     AssigneeId = task.AssigneeId,
-            //     Assignee = task.Assignee.Name
-            // }));
         }
 
         [HttpPost]
@@ -84,7 +52,6 @@ namespace KNUElite_project_backend.Controller
             if (!result)
                 return BadRequest();
             
-            //return Ok(task);
             return CreatedAtAction("Get", new { id = task.Id }, task);
         }
 

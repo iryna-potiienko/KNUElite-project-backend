@@ -53,8 +53,32 @@ namespace KNUElite_project_backend.Repositories
              {
                  return null;
              }
-         
-             _context.Users.Remove(user);
+
+            var tasks = _context.Tasks.Where(t => t.AssigneeId == user.Id).ToList();
+            foreach(var task in tasks)
+            {
+                task.AssigneeId = task.ReporterId;
+                _context.Update(task);
+            }
+
+            tasks = _context.Tasks.Where(t => t.ReporterId == user.Id).ToList();
+            if(tasks.Count != 0)
+            {
+                var pmId = _context.Users.Where(t => t.RoleId == 31 || t.RoleId == 1).FirstOrDefault()?.Id;
+                if(pmId == null)
+                {
+                   pmId = _context.Users.FirstOrDefault().Id;
+                }
+
+                foreach(var task in tasks)
+                {
+                    task.ReporterId = pmId.Value;
+                    _context.Update(task);
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            _context.Users.Remove(user);
              await _context.Save();
 
              return user;

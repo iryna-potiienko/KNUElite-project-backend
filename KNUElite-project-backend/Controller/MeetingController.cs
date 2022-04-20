@@ -15,7 +15,6 @@ namespace KNUElite_project_backend.Controller
     [ApiController]
     public class MeetingController : ControllerBase
     {
-        //private ProjectContex _context;
         private readonly IMeetingRepository _meetingRepository;
 
         public MeetingController(IMeetingRepository repository)
@@ -26,14 +25,12 @@ namespace KNUElite_project_backend.Controller
         [HttpGet]
         public IList<Meeting> Get()
         {
-            //return (_context.Meetings.ToList());
             return _meetingRepository.Get();
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            //var meeting = await _context.Meetings.FindAsync(id);
             var meeting = await _meetingRepository.Get(id);
             
             if (meeting == null)
@@ -47,8 +44,6 @@ namespace KNUElite_project_backend.Controller
         [HttpPost]
         public async Task<IActionResult> Post(Meeting meeting)
         {
-            // _context.Meetings.Add(meeting);
-            // await _context.SaveChangesAsync();
 
             await _meetingRepository.Add(meeting);
             return CreatedAtAction("Get", new { id = meeting.Id }, meeting);
@@ -57,7 +52,6 @@ namespace KNUElite_project_backend.Controller
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            //var meeting = await _context.Meetings.FindAsync(id);
 
             var meeting = await _meetingRepository.Delete(id);
             if (meeting == null)
@@ -65,9 +59,6 @@ namespace KNUElite_project_backend.Controller
                 return NotFound();
             }
             
-            // _context.Meetings.Remove(meeting);
-            // await _context.SaveChangesAsync();
-
             return Ok();
         }
     }

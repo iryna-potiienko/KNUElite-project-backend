@@ -22,29 +22,6 @@ namespace KNUElite_project_backend.Repositories
         {
             var tasks = _context.Tasks.Include("Status").Include("Type").Include("Project").Include("Reporter")
                 .Include("Assignee").ToList();
-            // List<JsonResult> result = new List<JsonResult>();
-            // foreach (var task in tasks)
-            // {
-            //     var res = (new JsonResult(new
-            //     {
-            //         Id = task.Id,
-            //         Title = task.Title,
-            //         Description = task.Description,
-            //         TypeId = task.TypeId,
-            //         Type = task.Type.Name,
-            //         StatusId = task.StatusId,
-            //         Status = task.Status.Name,
-            //         ProjectId = task.ProjectId,
-            //         Project = task.Project.Name,
-            //         EstimatedTime = task.EstimatedTime,
-            //         LoggedTime = task.LoggedTime,
-            //         ReporterId = task.ReporterId,
-            //         Reporter = task.Reporter.Name,
-            //         AssigneeId = task.AssigneeId,
-            //         Assignee = task.Assignee.Name
-            //     }));
-            //     result.Add(res);
-            // }
 
             var result = ConvertToJsonList(tasks);
             return (result);
@@ -61,7 +38,6 @@ namespace KNUElite_project_backend.Repositories
                 return null;
             }
 
-            //return task;
             return ConvertToJsonResult(task);
         }
 
@@ -72,8 +48,16 @@ namespace KNUElite_project_backend.Repositories
              {
                  return null;
              }
-         
-             _context.Tasks.Remove(task);
+
+            var comments = _context.Comments.Where(t => t.TaskId == task.Id).ToList();
+            foreach(var comment in comments)
+            {
+                _context.Comments.Remove(comment);
+            }
+
+            await _context.Save();
+
+            _context.Tasks.Remove(task);
              await _context.Save();
 
              return task;
@@ -85,7 +69,6 @@ namespace KNUElite_project_backend.Repositories
              try
              {
                  await _context.SaveChangesAsync();
-                 //_context.Save();
              }
              catch (Exception e)
              {
@@ -93,7 +76,6 @@ namespace KNUElite_project_backend.Repositories
              }
 
              return true;
-             //_context.Save();
          }
          public async Task<bool> Edit(int id, Models.Task task)
          {
@@ -108,7 +90,6 @@ namespace KNUElite_project_backend.Repositories
                  return false;
              }
 
-             //return CreatedAtAction("Get", new { id = task.Id }, task);
              return true;
          }
 
