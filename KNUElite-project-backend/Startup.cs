@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KNUElite_project_backend.IRepositories;
+using KNUElite_project_backend.Repositories;
 
 namespace KNUElite_project_backend
 {
@@ -25,17 +27,29 @@ namespace KNUElite_project_backend
         public void ConfigureServices(IServiceCollection services)
         {
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            
+            //services.AddScoped<IProjectContext, ProjectContex>();
             services.AddDbContextPool<ProjectContex>(options => options.UseMySql(mySqlConnectionStr, 
                 ServerVersion.AutoDetect(mySqlConnectionStr)));
+
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            
+            services.AddScoped<IMeetingRepository, MeetingsRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IStatusRepository, StatusRepository>();
+            services.AddScoped<ITypeRepository, TypeRepository>();
+            
             services.AddControllers().AddNewtonsoftJson();
 
-            // Named Policy
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "AllowOrigin",
+                options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:3000")
+                        builder.AllowAnyOrigin()
                                             .AllowAnyHeader()
                                             .AllowAnyMethod();
                     });
@@ -55,12 +69,12 @@ namespace KNUElite_project_backend
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCors("AllowOrigin");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseAuthorization();
 

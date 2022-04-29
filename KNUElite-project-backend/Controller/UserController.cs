@@ -8,31 +8,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KNUElite_project_backend.IRepositories;
 
 namespace KNUElite_project_backend.Controller
 {
-    [EnableCors("AllowOrigin")]
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private ProjectContex _context;
 
-        public UserController(ProjectContex context)
+        private readonly IUserRepository _userRepository;
+        public UserController(IUserRepository repository)
         {
-            _context = context;
+            _userRepository = repository;
         }
 
         [HttpGet]
         public IList<User> Get()
         {
-            return (_context.Users.ToList());
+            return _userRepository.Get();
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var user = _context.Users.Where(t=>t.Id == id).FirstOrDefault();
+            var user = _userRepository.Get(id);
 
             if (user == null)
             {
@@ -45,23 +46,22 @@ namespace KNUElite_project_backend.Controller
         [HttpPost]
         public async Task<IActionResult> Post(User user)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
+            var result = await _userRepository.Add(user);
+            if (!result)
+                return BadRequest();
+            
             return CreatedAtAction("Get", new { id = user.Id }, user);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+
+            var user = await _userRepository.Delete(id);
             if (user == null)
             {
                 return NotFound();
             }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
 
             return Ok();
         }
@@ -71,7 +71,8 @@ namespace KNUElite_project_backend.Controller
         {
             var email = data["email"].ToString();
             var password = data["password"].ToString();
-            var user = _context.Users.Where(t => t.Email.Equals(email)).Include("Role").FirstOrDefault();
+            
+            var user = _userRepository.CheckUser(email, password);
 
             if (user == null)
                 return BadRequest("Unknown email");
@@ -83,6 +84,13 @@ namespace KNUElite_project_backend.Controller
 
             return BadRequest("Wrong password");
 
+        }
+
+        [HttpGet("list")]
+        public IList<JsonResult> UserList()
+        {
+            var users = _userRepository.GetList();
+            return users;
         }
     }
 }

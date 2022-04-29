@@ -1,0 +1,19 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7eab8ec6_002Dc3d9_002D4b9b_002Daabe_002D095260c4301f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FindDatabaseTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::.NETCoreApp,Version=v3.1::KNUElite_project_unit_tests.TaskUnitTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::.NETCoreApp,Version=v3.1::KNUElite_project_unit_tests.UserUnitTests.GetUserByIdTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::.NETCoreApp,Version=v3.1::KNUElite_project_unit_tests.UserUnitTests.GetAllUsersTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::.NETCoreApp,Version=v3.1::KNUElite_project_unit_tests.UserUnitTests.AddUserTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::.NETCoreApp,Version=v3.1::KNUElite_project_unit_tests.UserUnitTests.DeleteUserTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF7F111C-2871-4C49-A269-97C7D5517166::.NETCoreApp,Version=v3.1::KNUElite_project_unit_tests.UserUnitTests.CheckUser&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	</wpf:ResourceDictionary>

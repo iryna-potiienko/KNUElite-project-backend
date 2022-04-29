@@ -9,7 +9,7 @@ using Type = KNUElite_project_backend.Models.Type;
 
 namespace KNUElite_project_backend
 {
-    public class ProjectContex : DbContext
+    public class ProjectContex : DbContext //, IProjectContext
     {
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
@@ -19,11 +19,16 @@ namespace KNUElite_project_backend
         public DbSet<UserMeeting> UserMeetings { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Type> Types { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<Task> Tasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<File> Files { get; set; }
         public ProjectContex(DbContextOptions<ProjectContex> options) : base(options)
         {
+        }
+        
+        public System.Threading.Tasks.Task Save()
+        {
+            return SaveChangesAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -138,6 +143,5 @@ namespace KNUElite_project_backend
 
         }
     }
-
 }
 

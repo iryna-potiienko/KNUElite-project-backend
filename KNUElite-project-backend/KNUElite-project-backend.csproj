@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>KNUElite_project_backend</RootNamespace>
     <StartupObject>KNUElite_project_backend.Program</StartupObject>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
